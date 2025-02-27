@@ -26,6 +26,14 @@
             return $this->rol_code;
         }
 
+        # Nombre del Rol
+        public function setRolName($rol_name){
+            $this->rol_name = $rol_name;
+        }
+        public function getRolName(){
+            return $this->rol_name;
+        }
+
 
         // Métodos de persistencia a la base de datos
 

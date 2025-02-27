@@ -5,10 +5,15 @@ class Users{
 
     public function main(){}
 
-    public function userCreate(){
+    public function userRolCreate(){
         $user = new User;
-        $user->setRolCode("Uno");
-        echo $user->getRolCode();
+        $user->setRolCode(1);
+        echo "Código Rol: " . $user->getRolCode();
+        echo "<br>";
+        $user->setRolName("admin");
+        echo "Nombre Rol: " . $user->getRolName();
+        echo "<br>";
+        print_r($user);
     }
 }
 
