@@ -35,10 +35,17 @@
             $this->user_pass = $user_pass;            
         }
         
-        # Constructor 02: Iniciar Sesión
-        public function __construct9($user_email, $user_pass){
+        # Constructor 09: Todos los atributos del objeto
+        public function __construct9($rol_code, $rol_name, $user_code, $user_name, $user_lastname, $user_id, $user_email, $user_pass, $user_state){
+            $this->rol_code = $rol_code;            
+            $this->rol_name = $rol_name;            
+            $this->user_code = $user_code;            
+            $this->user_name = $user_name;            
+            $this->user_lastname = $user_lastname;            
+            $this->user_id = $user_id;            
             $this->user_email = $user_email;            
             $this->user_pass = $user_pass;            
+            $this->user_state = $user_state;
         }
 
         // Métodos setter y getter

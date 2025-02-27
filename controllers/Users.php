@@ -29,6 +29,20 @@ class Users{
         echo "<br>";
         print_r($user2);
         echo "<br>";
+        echo "<br>";
+        
+        $user3 = new User(
+            1, 
+            "admin", 
+            789,
+            "pepito", 
+            "perez", 
+            123456789, 
+            "vicente@fernandez.com", 
+            md5("1234"), 
+            1
+        );        
+        print_r($user3);
     }
 }
 
