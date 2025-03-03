@@ -37,6 +37,17 @@
             $this->user_pass = $user_pass;            
         }
         
+        # Constructor 08: Todos los atributos del objeto (Sin nombre rol)
+        public function __construct8($rol_code, $user_code, $user_name, $user_lastname, $user_id, $user_email, $user_pass, $user_state){
+            $this->rol_code = $rol_code;                        
+            $this->user_code = $user_code;            
+            $this->user_name = $user_name;            
+            $this->user_lastname = $user_lastname;            
+            $this->user_id = $user_id;            
+            $this->user_email = $user_email;            
+            $this->user_pass = $user_pass;            
+            $this->user_state = $user_state;
+        }
         # Constructor 09: Todos los atributos del objeto
         public function __construct9($rol_code, $rol_name, $user_code, $user_name, $user_lastname, $user_id, $user_email, $user_pass, $user_state){
             $this->rol_code = $rol_code;            
@@ -195,6 +206,124 @@
                 die($e->getMessage());
             }
         }
+
+        # CU08 - Registrar Usuario
+        public function createUser(){
+            try {
+                $sql = 'INSERT INTO USUARIOS VALUES (
+                            :rolCode,
+                            :userCode,
+                            :userName,
+                            :userLastName,
+                            :userId,
+                            :userEmail,
+                            :userPass,
+                            :userState                            
+                        )';
+                $stmt = $this->dbh->prepare($sql);
+                $stmt->bindValue('rolCode', $this->getRolCode());
+                $stmt->bindValue('userCode', $this->getUserCode());
+                $stmt->bindValue('userName', $this->getUserName());
+                $stmt->bindValue('userLastName', $this->getUserLastName());
+                $stmt->bindValue('userId', $this->getUserId());
+                $stmt->bindValue('userEmail', $this->getUserEmail());
+                $stmt->bindValue('userPass', sha1($this->getUserPass()));
+                $stmt->bindValue('userState', $this->getUserState());
+                $stmt->execute();
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
+         # RF05_CU08 - Consultar Usuarios
+         public function readUsers(){
+            try {
+                $userList = [];
+                $sql = 'SELECT * FROM USUARIOS';
+                $stmt = $this->dbh->query($sql);
+                foreach ($stmt->fetchAll() as $user) {
+                    $userObj = new User(
+                        $user['rol_code'],                        
+                        $user['user_code'],
+                        $user['user_name'],
+                        $user['user_lastname'],
+                        $user['user_id'],
+                        $user['user_email'],
+                        $user['user_pass'],
+                        $user['user_state'],
+                    );
+                    array_push($userList, $userObj);
+                }
+                return $userList;
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
+        # RF06_CU06 - Obtener el Rol por el código
+        public function getUserById($userCode){
+            try {
+                $sql = "SELECT * FROM USUARIOS WHERE user_code=:userCode";
+                $stmt = $this->dbh->prepare($sql);
+                $stmt->bindValue('userCode', $userCode);
+                $stmt->execute();
+                $userDb = $stmt->fetch();
+                $user = new User(
+                    $userDb['rol_code'],
+                    $userDb['user_code'],
+                    $userDb['user_name'],                    
+                    $userDb['user_lastname'],                    
+                    $userDb['user_id'],                    
+                    $userDb['user_email'],                    
+                    $userDb['user_pass'],                    
+                    $userDb['user_state']
+                );
+                return $user;
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
+        # RF07_CU07 - Actualizar Rol
+        public function updateUser(){
+            try {
+                $sql = 'UPDATE USUARIOS SET
+                            rol_code = :rolCode,
+                            user_code = :userCode,
+                            user_name = :userName,
+                            user_lastname = :userLastname,
+                            user_id = :userId,
+                            user_email = :userEmail,
+                            user_pass = :userPass,
+                            user_state = :userState
+                        WHERE user_code = :userCode';
+                $stmt = $this->dbh->prepare($sql);
+                $stmt->bindValue('rolCode', $this->getRolCode());
+                $stmt->bindValue('userCode', $this->getUserCode());
+                $stmt->bindValue('userName', $this->getUserName());
+                $stmt->bindValue('userLastname', $this->getUserLastName());
+                $stmt->bindValue('userId', $this->getUserId());
+                $stmt->bindValue('userEmail', $this->getUserEmail());
+                $stmt->bindValue('userPass', sha1($this->getUserPass()));
+                $stmt->bindValue('userState', $this->getUserState());
+                $stmt->execute();
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
+        # RF08_CU08 - Eliminar Rol
+        public function deleteUser($userCode){
+            try {
+                $sql = 'DELETE FROM USUARIOS WHERE user_code = :userCode';
+                $stmt = $this->dbh->prepare($sql);
+                $stmt->bindValue('userCode', $userCode);
+                $stmt->execute();
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
 
 
     }
