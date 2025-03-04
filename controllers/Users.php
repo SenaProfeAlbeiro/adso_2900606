@@ -3,7 +3,12 @@
 require_once "models/User.php";
 class Users{
 
-    public function main(){}
+    public function main(){
+        $session = $_SESSION['session'];
+        if (!$session) {
+            header('Location:?');                
+        }
+    }
 
     public function userRolCreate(){
         $rol = new User;
@@ -34,13 +39,13 @@ class Users{
 
     public function userCreate(){
         $user = new User(
-            3,
-            3,
-            "Pedro",
-            "Infante",
-            "465464",
-            "pedro@infante.com",
-            "54321",
+            2,
+            5,
+            "Gustavo",
+            "Rojas",
+            "78987987",
+            "gustavo@rojas.com",
+            "12345",
             1
         );        
         $user->createUser();

@@ -3,7 +3,13 @@
     class Dashboard{
 
         public function main(){
-            echo "Bienvenido al Dashboard";
+            $session = $_SESSION['session'];
+            if ($session) {
+                require_once "views/roles/" . $session . "/" . $session . ".view.php";
+            } else {
+                header('Location:?');
+            }
+            
         }
     }
 

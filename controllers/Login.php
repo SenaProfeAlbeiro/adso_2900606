@@ -11,13 +11,25 @@ class Login{
                 $_POST['user_email'],
                 $_POST['user_pass']
             );                        
-            $profile = $profile->login();
+            $profile = $profile->login();            
             if ($profile) {
-                echo "Usuario Encontrado";
-                // header("Location:?c=Dashboard");
-            } else {                
-                echo "Usuario No Encontrado";
-                // header("Location:?");                
+                $active = $profile->getUserState();
+                if ($active != 0) {
+                    $session = $profile->getRolCode();
+                    if ($session == 1) {
+                        $_SESSION['session'] = 'admin';
+                    } elseif ($session == 2) {
+                        $_SESSION['session'] = 'customer';                        
+                    } elseif ($session == 3) {
+                        $_SESSION['session'] = 'seller';
+                    }                    
+                    header("Location:?c=Dashboard");
+                } else {
+                    header("Location:?");
+                }
+                
+            } else {                                
+                header("Location:?");
             }
         }
     }
