@@ -12,7 +12,7 @@ class Login{
                 $_POST['user_email'],
                 $_POST['user_pass']
             );                        
-            $profile = $profile->login();            
+            $profile = $profile->login();
             if ($profile) {
                 $active = $profile->getUserState();
                 if ($active != 0) {
