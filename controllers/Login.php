@@ -3,6 +3,7 @@ require_once "models/User.php";
 class Login{
     // Controlador Principal
     public function main() {
+        $message = "";
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             require_once 'views/company/login.view.php';
         }
@@ -22,14 +23,17 @@ class Login{
                         $_SESSION['session'] = 'customer';                        
                     } elseif ($session == 3) {
                         $_SESSION['session'] = 'seller';
-                    }                    
+                    }
+                    $profile = serialize($profile);
+                    $_SESSION['profile'] = $profile;
                     header("Location:?c=Dashboard");
                 } else {
-                    header("Location:?");
-                }
-                
-            } else {                                
-                header("Location:?");
+                    $message = "El Usuario NO está activo";                    
+                    require_once 'views/company/login.view.php';
+                }                
+            } else {
+                $message = "Las credenciales no son correctas";
+                require_once 'views/company/login.view.php';
             }
         }
     }

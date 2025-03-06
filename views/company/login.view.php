@@ -8,5 +8,5 @@
         <input type="password" name="user_pass" placeholder="Contraseña" />
     </div>
     <input type="submit" value="Enviar">
-
+    <div><?php echo $message ?></div>
 </form>
