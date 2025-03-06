@@ -39,12 +39,12 @@ class Users{
 
     public function userCreate(){
         $user = new User(
-            2,
-            5,
-            "Gustavo",
-            "Rojas",
-            "78987987",
-            "gustavo@rojas.com",
+            3,
+            6,
+            "Crear",
+            "Usuario",
+            "456456456",
+            "crear@usuario.com",
             "12345",
             1
         );        
