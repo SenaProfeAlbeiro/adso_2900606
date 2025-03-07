@@ -5,7 +5,9 @@ class Login{
     public function main() {
         $message = "";
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            require_once 'views/company/header.view.php';
             require_once 'views/company/login.view.php';
+            require_once 'views/company/footer.view.php';
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $profile = new User(
@@ -29,11 +31,15 @@ class Login{
                     header("Location:?c=Dashboard");
                 } else {
                     $message = "El Usuario NO está activo";                    
+                    require_once 'views/company/header.view.php';
                     require_once 'views/company/login.view.php';
+                    require_once 'views/company/footer.view.php';
                 }                
             } else {
-                $message = "Las credenciales no son correctas";
+                $message = "Las credenciales no son correctas";                                
+                require_once 'views/company/header.view.php';
                 require_once 'views/company/login.view.php';
+                require_once 'views/company/footer.view.php';
             }
         }
     }
