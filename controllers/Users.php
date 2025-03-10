@@ -10,28 +10,30 @@ class Users{
         }
     }
     
-    // public function main(){
-    //     if (empty($_SESSION['profile'])) {
-    //         $_SESSION['profile'] = null;
-    //         $_SESSION['session'] = null;
-    //     }
-    // }
+    public function main(){
+        header("Location:?c=Dashboard");
+    }
 
     public function userRolCreate(){
         $session = $_SESSION['session'];
         $profile = unserialize($_SESSION['profile']);
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            require_once "views/roles/" . $session . "/header.view.php";
-            require_once "views/modules/roles/rol_create.view.php";
-            require_once "views/roles/" . $session . "/footer.view.php";
+        if ($session == "admin") {            
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                require_once "views/roles/" . $session . "/header.view.php";
+                require_once "views/modules/roles/rol_create.view.php";
+                require_once "views/roles/" . $session . "/footer.view.php";
+            }
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $rol = new User;            
+                $rol->setRolName(null);
+                $rol->setRolName($_POST['rolName']);
+                $rol->createRol();
+                header("Location: ?c=Dashboard");
+            }
+        } else {
+            header("Location:?c=Dashboard");
         }
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $rol = new User;            
-            $rol->setRolName(null);
-            $rol->setRolName($_POST['rolName']);
-            $rol->createRol();
-            header("Location: ?c=Dashboard");
-        }
+        
     }
 
     public function userRolRead(){
