@@ -30,13 +30,13 @@ class Login{
                     $_SESSION['profile'] = $profile;
                     header("Location:?c=Dashboard");
                 } else {
-                    $message = "El Usuario NO está activo";                    
+                    $message = "<div class='alert alert-danger mt-2'>El Usuario NO está activo</div>";                    
                     require_once 'views/company/header.view.php';
                     require_once 'views/company/login.view.php';
                     require_once 'views/company/footer.view.php';
                 }                
             } else {
-                $message = "Las credenciales no son correctas";                                
+                $message = "<div class='alert alert-danger mt-2'>Las credenciales no son correctas</div>";
                 require_once 'views/company/header.view.php';
                 require_once 'views/company/login.view.php';
                 require_once 'views/company/footer.view.php';

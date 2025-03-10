@@ -24,6 +24,6 @@
                 </div>
             </div>
         </form>
-        <div class='alert alert-danger mt-2'><?php echo $message ?></div>
+        <?php echo $message ?>
     </div>
 </div>    
