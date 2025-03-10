@@ -18,9 +18,7 @@
                 require_once "views/roles/" . $session . "/footer.view.php";
             } else {
                 header('Location:?');
-            }
-            
+            }            
         }
     }
-
 ?>
